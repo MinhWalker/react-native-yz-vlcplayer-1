@@ -3,12 +3,12 @@
  * Created by yuanzhou.xu on 17/2/18.
  */
 import { PixelRatio, Dimensions, Platform, StatusBar } from 'react-native';
-let initialDeviceHeight = 667;
-let initialDeviceWidth = 375;
-let initialPixelRatio = 2;
-let deviceHeight = Dimensions.get('window').height;
-let deviceWidth = Dimensions.get('window').width;
-let pixelRatio = PixelRatio.get();
+const initialDeviceHeight = 667;
+const initialDeviceWidth = 375;
+const initialPixelRatio = 2;
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
+const pixelRatio = PixelRatio.get();
 let statusBarHeight = 20; //初始状态栏高度
 let topBarHeight = 44; //初始导航栏高度
 let tabBarHeight = 49; //初始标签栏高度
@@ -18,7 +18,7 @@ let changeRatio = Math.min(
   deviceWidth / initialDeviceWidth,
 ); //pixelRatio/initialPixelRatio;
 
-let pxWidth = deviceWidth * pixelRatio;
+const pxWidth = deviceWidth * pixelRatio;
 
 changeRatio = changeRatio.toFixed(2);
 if (deviceWidth > 375 && deviceWidth <= 1125 / 2) {
@@ -38,7 +38,7 @@ if (pxWidth <= 750) {
   statusBarHeight = 40 / pixelRatio;
   topBarHeight = 44 / pixelRatio;
   tabBarHeight = 49 / pixelRatio;
-} else if (750 < pxWidth && pxWidth <= 1125) {
+} else if (pxWidth > 750 && pxWidth <= 1125) {
   statusBarHeight = 54 / pixelRatio;
   topBarHeight = 132 / pixelRatio;
   tabBarHeight = 147 / pixelRatio;

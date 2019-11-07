@@ -25,9 +25,9 @@ export default class TimeLimt extends Component {
   }
 
   _updateTimer = () => {
-    let { timeNumber } = this.state;
-    let { maxTime } = this.props;
-    let newTimeNumber = timeNumber + 1;
+    const { timeNumber } = this.state;
+    const { maxTime } = this.props;
+    const newTimeNumber = timeNumber + 1;
     this.setState({
       timeNumber: newTimeNumber,
     });
@@ -41,14 +41,15 @@ export default class TimeLimt extends Component {
   }
 
   _onEnd = () => {
-    let { onEnd } = this.props;
+    const { onEnd } = this.props;
     clearInterval(this.timer);
     onEnd && onEnd();
   };
 
   render() {
-    let { timeNumber } = this.state;
-    let { maxTime } = this.props;
+    const { timeNumber } = this.state;
+    const { maxTime } = this.props;
+
     return (
       <TouchableOpacity
         style={{ flexDirection: 'row' }}

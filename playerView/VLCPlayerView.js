@@ -21,8 +21,8 @@ import ControlBtn from './ControlBtn';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { getStatusBarHeight } from './SizeController';
 const statusBarHeight = getStatusBarHeight();
-let deviceHeight = Dimensions.get('window').height;
-let deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
 export default class VLCPlayerView extends Component {
   static propTypes = {
     uri: PropTypes.string,
@@ -74,14 +74,14 @@ export default class VLCPlayerView extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.uri !== prevProps.uri) {
-      console.log("componentDidUpdate");
+      console.log('componentDidUpdate');
       this.changeUrl = true;
 
     }
   }
 
   render() {
-    let {
+    const {
       onEnd,
       style,
       isAd,
@@ -95,7 +95,7 @@ export default class VLCPlayerView extends Component {
       showTitle,
       videoAspectRatio,
     } = this.props;
-    let { isLoading, loadingSuccess, showControls, isError } = this.state;
+    const { isLoading, loadingSuccess, showControls, isError } = this.state;
     let showAd = false;
     let realShowLoding = false;
     let source = {};
@@ -127,7 +127,7 @@ export default class VLCPlayerView extends Component {
         activeOpacity={1}
         style={[styles.videoBtn, style]}
         onPressOut={() => {
-          let currentTime = new Date().getTime();
+          const currentTime = new Date().getTime();
           if (this.touchTime === 0) {
             this.touchTime = currentTime;
             this.setState({ showControls: !this.state.showControls });
@@ -139,7 +139,7 @@ export default class VLCPlayerView extends Component {
           }
         }}>
         <VLCPlayer
-          ref={ref => (this.vlcPlayer = ref)}
+          ref={(ref) => (this.vlcPlayer = ref)}
           paused={this.state.paused}
           //seek={this.state.seek}
           style={[styles.video]}
@@ -164,7 +164,7 @@ export default class VLCPlayerView extends Component {
           </View>
         )}
         {isError && (
-          <View style={[styles.loading,{backgroundColor:'#000'}]}>
+          <View style={[styles.loading, {backgroundColor:'#000'}]}>
             <Text style={{ color: 'red' }}>视频播放出错,请重新加载</Text>
             <TouchableOpacity
               activeOpacity={1}
@@ -230,13 +230,13 @@ export default class VLCPlayerView extends Component {
               totalTime={this.state.totalTime}
               onPausedPress={this._play}
               onFullPress={this._toFullScreen}
-              onValueChange={value => {
+              onValueChange={(value) => {
                 this.changingSlider = true;
                 this.setState({
                   currentTime: value,
                 });
               }}
-              onSlidingComplete={value => {
+              onSlidingComplete={(value) => {
                 this.changingSlider = false;
                 if (Platform.OS === 'ios') {
                   this.vlcPlayer.seek(Number((value / this.state.totalTime).toFixed(17)));
@@ -295,13 +295,13 @@ export default class VLCPlayerView extends Component {
 
   bufferIntervalFunction = () => {
     console.log('bufferIntervalFunction');
-    let currentTime = new Date().getTime();
-    let diffTime = currentTime - this.bufferTime;
+    const currentTime = new Date().getTime();
+    const diffTime = currentTime - this.bufferTime;
     if (diffTime > 1000) {
       clearInterval(this.bufferInterval);
       this.setState({
         paused: true,
-      },()=>{
+      }, ()=>{
         this.setState({
           paused: false,
           isLoading: false,
@@ -312,7 +312,7 @@ export default class VLCPlayerView extends Component {
     }
   };
 
-  _onError = e => {
+  _onError = (e) => {
     console.log('_onError');
     console.log(e);
     this.reloadSuccess = false;
@@ -321,18 +321,18 @@ export default class VLCPlayerView extends Component {
     });
   };
 
-  _onOpen = e => {
+  _onOpen = (e) => {
     console.log('onOpen');
     console.log(e);
   };
 
-  _onLoadStart = e => {
+  _onLoadStart = (e) => {
     console.log('_onLoadStart');
     console.log(e);
-    let { isError } = this.state;
+    const { isError } = this.state;
     if(isError){
       this.reloadSuccess = true;
-      let { currentTime, totalTime } = this.state;
+      const { currentTime, totalTime } = this.state;
       if (Platform.OS === 'ios') {
         this.vlcPlayer.seek(Number((currentTime / totalTime).toFixed(17)));
       } else {
@@ -341,11 +341,11 @@ export default class VLCPlayerView extends Component {
       this.setState({
         paused: true,
         isError: false,
-      },()=>{
+      }, ()=>{
         this.setState({
           paused: false,
         });
-      })
+      });
     }else{
       this.vlcPlayer.seek(0);
       this.setState({
@@ -355,11 +355,11 @@ export default class VLCPlayerView extends Component {
         paused: true,
         currentTime: 0.0,
         totalTime: 0.0,
-      },()=>{
+      }, ()=>{
         this.setState({
           paused: false,
         });
-      })
+      });
     }
   };
 
@@ -382,7 +382,7 @@ export default class VLCPlayerView extends Component {
      ',remainingTime=' +
      event.remainingTime,
      );*/
-    let currentTime = event.currentTime;
+    const currentTime = event.currentTime;
     let loadingSuccess = false;
     if (currentTime > 0 || this.state.currentTime > 0) {
       loadingSuccess = true;
@@ -407,11 +407,11 @@ export default class VLCPlayerView extends Component {
    * @param event
    */
   onEnded(event) {
-    console.log('onEnded ---------->')
-    console.log(event)
-    console.log('<---------- onEnded ')
-    let { currentTime, totalTime } = this.state;
-    let { onEnd, autoplay, isAd } = this.props;
+    console.log('onEnded ---------->');
+    console.log(event);
+    console.log('<---------- onEnded ');
+    const { currentTime, totalTime } = this.state;
+    const { onEnd, autoplay, isAd } = this.props;
     if (((currentTime+5) >= totalTime && totalTime > 0) || isAd) {
       this.setState(
         {
@@ -451,7 +451,7 @@ export default class VLCPlayerView extends Component {
    * @private
    */
   _toFullScreen = () => {
-    let { startFullScreen, closeFullScreen, isFull } = this.props;
+    const { startFullScreen, closeFullScreen, isFull } = this.props;
     if (isFull) {
       closeFullScreen && closeFullScreen();
     } else {

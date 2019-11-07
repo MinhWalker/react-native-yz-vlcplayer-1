@@ -10,18 +10,18 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StatusBar,
+  Slider
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Slider from 'react-native-slider';
 import PropTypes from 'prop-types';
 import TimeLimt from './TimeLimit';
 
 export default class ControlBtn extends Component {
   _getTime = (data = 0) => {
-    let hourCourse = Math.floor(data / 3600);
-    let diffCourse = data % 3600;
-    let minCourse = Math.floor(diffCourse / 60);
-    let secondCourse = Math.floor(diffCourse % 60);
+    const hourCourse = Math.floor(data / 3600);
+    const diffCourse = data % 3600;
+    const minCourse = Math.floor(diffCourse / 60);
+    const secondCourse = Math.floor(diffCourse % 60);
     let courseReal = '';
     if (hourCourse) {
       if (hourCourse < 10) {
@@ -40,11 +40,12 @@ export default class ControlBtn extends Component {
     } else {
       courseReal += secondCourse;
     }
+
     return courseReal;
   };
 
   render() {
-    let {
+    const {
       paused,
       isFull,
       showSlider,
@@ -56,8 +57,9 @@ export default class ControlBtn extends Component {
       totalTime,
       style
     } = this.props;
+
     return (
-      <View style={[styles.controls,style]}>
+      <View style={[styles.controls, style]}>
         <View style={styles.controlContainer}>
           <TouchableOpacity style={styles.controlContent} activeOpacity={1}>
             <View style={styles.controlContent2}>
@@ -77,8 +79,8 @@ export default class ControlBtn extends Component {
                     flexDirection: 'row',
                     //justifyContent: 'space-between',
                   }}>
-                  <View style={{justifyContent:'center',alignItems:'center',height:50, minWidth: 50,}}>
-                    <Text style={{fontSize: 11,color: '#fff',}}>
+                  <View style={{justifyContent:'center', alignItems:'center', height:50, minWidth: 50}}>
+                    <Text style={{fontSize: 11, color: '#fff'}}>
                       {this._getTime(currentTime) || 0}
                     </Text>
                   </View>
@@ -90,17 +92,17 @@ export default class ControlBtn extends Component {
                       value={currentTime}
                       maximumValue={totalTime}
                       step={1}
-                      onValueChange={value => {
+                      onValueChange={(value) => {
                         onValueChange && onValueChange(value);
                       }}
-                      onSlidingComplete={value => {
+                      onSlidingComplete={(value) => {
                         onSlidingComplete && onSlidingComplete(value);
                       }}
                     />
                   </View>
-                  <View style={{justifyContent:'center',alignItems:'center',height:50, minWidth: 50}}>
+                  <View style={{justifyContent:'center', alignItems:'center', height:50, minWidth: 50}}>
                     <Text
-                      style={{fontSize: 11,color: '#fff'}}>
+                      style={{fontSize: 11, color: '#fff'}}>
                       {this._getTime(totalTime) || 0}
                     </Text>
                   </View>

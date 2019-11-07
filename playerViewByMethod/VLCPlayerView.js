@@ -77,7 +77,7 @@ export default class VLCPlayerView extends Component {
    * when then video is paused
    * @param event
    */
-  _onPaused = (event) =>  {
+  _onPaused = (event) => {
     console.log('onPaused');
   }
 
@@ -86,7 +86,7 @@ export default class VLCPlayerView extends Component {
    * @param event
    */
   _onBuffering = (event) => {
-    this.props.onBuffering &&  this.props.onBuffering(event);
+    this.props.onBuffering && this.props.onBuffering(event);
   }
 
   /**
@@ -95,7 +95,7 @@ export default class VLCPlayerView extends Component {
    * @private
    */
   _onIsPlaying =(event)=>{
-    this.props.onIsPlaying && this.props.onIsPlaying(event)
+    this.props.onIsPlaying && this.props.onIsPlaying(event);
   }
 
   /**
@@ -103,12 +103,12 @@ export default class VLCPlayerView extends Component {
    * @param e
    * @private
    */
-  _onError = e => {
+  _onError = (e) => {
     this.props.onError && this.props.onError(e);
   };
 
-  _onSnapshot = e => {
-    this.props.onSnapshot &&  this.props.onSnapshot(e);
+  _onSnapshot = (e) => {
+    this.props.onSnapshot && this.props.onSnapshot(e);
   }
 
   /**
@@ -116,7 +116,7 @@ export default class VLCPlayerView extends Component {
    * @param e
    * @private
    */
-  _onOpen = e => {
+  _onOpen = (e) => {
     console.log('onOpen');
     console.log(e);
   };
@@ -126,7 +126,7 @@ export default class VLCPlayerView extends Component {
    * @param e
    * @private
    */
-  _onLoadStart = e => {
+  _onLoadStart = (e) => {
     this.props.onLoadStart && this.props.onLoadStart(e);
   };
 
@@ -147,7 +147,7 @@ export default class VLCPlayerView extends Component {
    * @param event
    */
   _onEnded = (event) => {
-    let { onEnd } = this.props;
+    const { onEnd } = this.props;
     onEnd && onEnd(event);
   }
 
@@ -205,7 +205,7 @@ export default class VLCPlayerView extends Component {
   volume = (volume)=>{
     this.setState({
       volume: volume
-    })
+    });
   }
 
   /**
@@ -251,24 +251,24 @@ export default class VLCPlayerView extends Component {
    * @private
    */
   _renderLoading = ()=>{
-    let { showAd, isEndAd, isAd, pauseByAutoplay} = this.props;
-    let { showLoading, showAdLoading } = this.state;
+    const { showAd, isEndAd, isAd, pauseByAutoplay} = this.props;
+    const { showLoading, showAdLoading } = this.state;
     if(!pauseByAutoplay){
       if(isAd){
         if(showAdLoading){
           return(
             <View style={styles.loading}>
-                <ActivityIndicator size={'large'} animating={true} color="#fff" />
+              <ActivityIndicator size={'large'} animating={true} color="#fff" />
             </View>
-          )
+          );
         }
       }else{
         if(showLoading && ((showAd && isEndAd) || !showAd)){
           return(
             <View style={styles.loading}>
-                <ActivityIndicator size={'large'} animating={true} color="#fff" />
+              <ActivityIndicator size={'large'} animating={true} color="#fff" />
             </View>
-          )
+          );
         }
       }
     }
@@ -281,17 +281,17 @@ export default class VLCPlayerView extends Component {
    * @param e
    * @private
    */
-  onLayout = e => {
-    let { width, height } = e.nativeEvent.layout;
+  onLayout = (e) => {
+    const { width, height } = e.nativeEvent.layout;
     this.setState({
       width,
       height
-    })
+    });
   };
 
 
   render() {
-    let {
+    const {
       onEnd,
       style,
       isAd,
@@ -305,7 +305,7 @@ export default class VLCPlayerView extends Component {
       autoplay,
       isFull
     } = this.props;
-    let { width, height} = this.state;
+    const { width, height} = this.state;
     let source = {};
     if (url) {
       if (url.split) {
@@ -314,7 +314,7 @@ export default class VLCPlayerView extends Component {
         source = url;
       }
     }
-      /*if(!videoAspectRatio){
+    /*if(!videoAspectRatio){
        if(isFull){
        if(width + height - deviceWidth+deviceHeight <= 50){
        videoAspectRatio =  width + ':' + height;
@@ -326,42 +326,43 @@ export default class VLCPlayerView extends Component {
        }
        }
        console.log(videoAspectRatio);*/
+
     return (
-      <View style={[{flex:1},style]}>
-          <View style={{flex:1}} onLayout={this.onLayout}>
-              <VLCPlayer
-                hwDecoderEnabled={this.props.hwDecoderEnabled}
-                hwDecoderForced={this.props.hwDecoderForced}
-                autoAspectRatio={this.props.autoAspectRatio}
-                showLog={this.props.showLog}
-                ref={ref => (this.vlcPlayer = ref)}
-                style={styles.video}
-                autoplay={autoplay}
-                source={source}
-                volume={this.state.volume}
-                muted={this.state.muted}
-                videoAspectRatio={videoAspectRatio}
-                onProgress={this._onProgress}
-                onEnd={this._onEnded}
-                onStopped={this._onStopped}
-                onPlaying={this._onPlaying}
-                onBuffering={this._onBuffering}
-                onPaused={this.onPaused}
-                onError={this._onError}
-                onOpen={this._onOpen}
-                onLoadStart={this._onLoadStart}
-                onSnapshot={this._onSnapshot}
-                onIsPlaying={this._onIsPlaying}
-                mediaOptions={mediaOptions ||
+      <View style={[{flex:1}, style]}>
+        <View style={{flex:1}} onLayout={this.onLayout}>
+          <VLCPlayer
+            hwDecoderEnabled={this.props.hwDecoderEnabled}
+            hwDecoderForced={this.props.hwDecoderForced}
+            autoAspectRatio={this.props.autoAspectRatio}
+            showLog={this.props.showLog}
+            ref={(ref) => (this.vlcPlayer = ref)}
+            style={styles.video}
+            autoplay={autoplay}
+            source={source}
+            volume={this.state.volume}
+            muted={this.state.muted}
+            videoAspectRatio={videoAspectRatio}
+            onProgress={this._onProgress}
+            onEnd={this._onEnded}
+            onStopped={this._onStopped}
+            onPlaying={this._onPlaying}
+            onBuffering={this._onBuffering}
+            onPaused={this.onPaused}
+            onError={this._onError}
+            onOpen={this._onOpen}
+            onLoadStart={this._onLoadStart}
+            onSnapshot={this._onSnapshot}
+            onIsPlaying={this._onIsPlaying}
+            mediaOptions={mediaOptions ||
                 {
                   ':network-caching': 250,
                   ':live-caching': 250,
                 }
-                }
-                initOptions={initOptions || []}
-                initType={initType || 1}
-              />
-          </View>
+            }
+            initOptions={initOptions || []}
+            initType={initType || 1}
+          />
+        </View>
         {/* {this._renderLoading()}*/}
       </View>
     );
@@ -401,7 +402,7 @@ const styles = StyleSheet.create({
   },
 
   topView: {
-    top: 0,//Platform.OS === 'ios' ? statusBarHeight : 0,
+    top: 0, //Platform.OS === 'ios' ? statusBarHeight : 0,
     backgroundColor: 'rgba(0,0,0,0.6)',
     left: 0,
     height: 37,
