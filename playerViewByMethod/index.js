@@ -16,13 +16,13 @@ import {
   Animated,
   NetInfo,
   Image,
-  ScrollView
+  ScrollView,
+  Slider
 } from 'react-native';
 
 import VLCPlayerView from './VLCPlayerView';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Slider from 'react-native-slider';
 import ControlBtn from './ControlBtn';
 import TimeLimt from './TimeLimit';
 import { getStatusBarHeight } from './SizeController';
