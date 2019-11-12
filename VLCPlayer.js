@@ -163,7 +163,7 @@ export default class VLCPlayer extends Component {
         const mediaOptionsList = [];
         const mediaOptions = this.props.mediaOptions || {};
         const keys = Object.keys(mediaOptions);
-        for(let i=0; i < keys.length - 1; i++){
+        for(let i=0; i < keys.length; i++){
           const optionKey = keys[i];
           const optionValue = mediaOptions[optionKey];
           mediaOptionsList.push(optionKey + '=' + optionValue);
