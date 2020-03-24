@@ -32,6 +32,9 @@ android {
 }
 
 dependencies {
+    implementation('com.facebook.react:react-native:+') {  // From node_modules
+        exclude group: 'com.android.support'
+    }
     provided fileTree(dir: 'libs', include: ['*.jar'])
     provided "com.facebook.react:react-native:${_reactNativeVersion}"
     compile 'com.yyl.vlc:vlc-android-sdk:3.0.13'
